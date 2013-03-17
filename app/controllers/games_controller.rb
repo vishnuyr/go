@@ -1,7 +1,11 @@
 class GamesController < ApplicationController
 
   before_filter :build_game, :only => [:new, :create]
-  before_filter :load_game, :only => [:show]
+  before_filter :load_game, :only => [:show, :join]
+
+  def index
+    @games = Game.all
+  end
 
   def new
   end
@@ -24,6 +28,15 @@ class GamesController < ApplicationController
   end
 
   def join
+    if @game.players.count < 2
+      @game.players << current_user
+      @game.white_player_id = current_user.id if !@game.white_player_id 
+      @game.save
+      redirect_to game_path(@game)
+    else
+      flash[:notice] = 'that game is full'
+      redirect_to games_path
+    end
   end
 
 protected

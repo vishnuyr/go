@@ -1,5 +1,7 @@
 Go::Application.routes.draw do
 
+  root :to => 'player_sessions#new'
+
   get     'login'   => 'player_sessions#new',     :as => :login
   post    'login'   => 'player_sessions#create'
   delete  'logout'  => 'player_sessions#destroy', :as => :logout
@@ -8,9 +10,9 @@ Go::Application.routes.draw do
   post  'signup' => 'players#create'
 
   resources :players, :only => [:edit, :update, :show]
-  resources :games, :except => :index do
+  resources :games do
     member do
-      post 'join' => 'games#join'
+      get 'join' => 'games#join'
       resources :stones
     end
   end

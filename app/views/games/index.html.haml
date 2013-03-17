@@ -1,0 +1,3 @@
+- @games.each do |game|
+  %ul
+    %li= link_to "join game #{game.id}", join_game_path(game)
