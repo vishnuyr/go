@@ -8,6 +8,11 @@ Go::Application.routes.draw do
   post  'signup' => 'players#create'
 
   resources :players, :only => [:edit, :update, :show]
-  resources :games, :except => :index
+  resources :games, :except => :index do
+    member do
+      post 'join' => 'games#join'
+      resources :stones
+    end
+  end
 
 end

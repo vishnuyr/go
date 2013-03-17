@@ -1,3 +1,6 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$ ->
+
+  $(document).on 'click', 'td.board_cell', ->
+    console.log "hello"
+    path = "/games/" + game_id + "/stones"
+    $.post path, {'stone': {'x_position': $(this).data('x'), 'y_position': $(this).data('y')}}

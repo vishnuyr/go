@@ -23,6 +23,9 @@ class GamesController < ApplicationController
     end
   end
 
+  def join
+  end
+
 protected
 
   def build_game

@@ -35,5 +35,4 @@ class GamesControllerTest < ActionController::TestCase
     assert assigns(:white_player)
   end
 
-
 end

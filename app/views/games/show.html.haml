@@ -2,7 +2,21 @@
 
 %p 
   %h3 Players
-  = @game.players
+  - @game.players.each do |player|
+    - if @game.white_player_id == player.id
+      %p 
+        White:
+        = player.username
+    - else
+      %p 
+        Black:
+        = player.username
 %p
   %h3 Details
   = @game.inspect
+
+.board
+  = render :partial => 'board', :locals => {:game => @game}
+
+:javascript
+  var game_id = "#{@game.id}"

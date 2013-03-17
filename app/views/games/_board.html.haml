@@ -1,0 +1,12 @@
+%table.board
+  - (1..game.board_size).each do |row|
+    %tr
+      - (1..game.board_size).each do |column|
+        %td.board_cell{:data => {:x => column, :y => row}}
+          - if stone = game.stones.select {|s| s[:x_position] == column && s[:y_position] == row}.first
+            - if stone.is_white
+              .stone.white
+            - else
+              .stone.black
+          - else
+            .stone

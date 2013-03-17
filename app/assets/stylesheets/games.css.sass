@@ -1,0 +1,23 @@
+table
+  background: #ccc
+  tr
+    td
+      width: 30px
+      height: 30px
+      background: url(board_cell_bg.png) no-repeat left
+      display: inline-block
+      margin: 0 -2px -4px 0
+      .stone
+        width: 20px
+        height: 20px
+        border-radius: 100px
+        margin: 0 auto
+        position: relative
+        top: 5px
+        &.white
+          background: white
+        &.black
+          background: black
+      &:hover
+        .stone
+          border: 1px solid red
