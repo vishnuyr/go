@@ -1,0 +1,9 @@
+development: &development
+  adapter: mysql2
+  username: username
+  password: password
+  database: go_development
+
+test:
+  <<: *development
+  database: go_test

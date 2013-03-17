@@ -1,4 +1,4 @@
-= form.text_field :username
-= form.text_field :email
-= form.password_field :password, :autocomplete => :off
-= form.password_field :password_confirmation, :autocomplete => :off, :label => 'Confirm Password'
+- @player.games.each do |game|
+  = game.inspect
+
+= link_to 'start a new game', games_path, :method => :post

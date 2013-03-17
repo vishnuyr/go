@@ -13,7 +13,7 @@ class PlayersController < ApplicationController
   def create
     @player.save!
     auto_login(@player)
-    redirect_to signup_path
+    redirect_to player_path(@player)
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Registration failed. Please correct highlighted fields'
     render :action => :new
@@ -21,6 +21,7 @@ class PlayersController < ApplicationController
 
   def edit
   end
+
 
 protected
 

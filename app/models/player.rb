@@ -10,7 +10,7 @@ class Player < ActiveRecord::Base
   # -- Validations ----------------------------------------------------------
   validates_confirmation_of :password, :message => 'passwords did not match', :if => :password
   validates :username,
-    :presence     => true
+    :presence => true
 
   # -- Scopes ---------------------------------------------------------------
 end
