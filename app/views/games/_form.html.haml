@@ -1,0 +1,5 @@
+%label board size
+= form.text_field :board_size
+%label color
+= select_tag :color, options_for_select([['white', 'white'],['black', 'black']])
+= form.submit

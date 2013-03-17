@@ -13,4 +13,5 @@ class Player < ActiveRecord::Base
     :presence => true
 
   # -- Scopes ---------------------------------------------------------------
+
 end

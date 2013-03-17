@@ -7,6 +7,9 @@ class GamesController < ApplicationController
   end
 
   def create
+    if params[:color] == 'white'
+      @game.white_player_id = current_user.id
+    end
     @game.save!
     redirect_to game_path(@game)
   rescue ActiveRecord::RecordInvalid
@@ -15,12 +18,16 @@ class GamesController < ApplicationController
   end
 
   def show
+    if @game.white_player_id
+      @white_player = @game.players.select {|p| p.id == @game.white_player_id}.first
+    end
   end
 
 protected
 
   def build_game
-    @game = current_user.games.build(params[:game])
+    @game = Game.new
+    @game.players << current_user
   end
 
   def load_game
