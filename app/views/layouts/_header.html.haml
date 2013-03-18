@@ -1,0 +1,9 @@
+%ul
+  %li= current_user.username
+  %li= current_user.email
+  %li 
+    color:
+    - if @game && @game.white_player_id == current_user.id
+      white
+    - else
+      black
