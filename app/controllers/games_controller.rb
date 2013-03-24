@@ -52,7 +52,7 @@ protected
   end
 
   def build_groups
-    # groups = Group.group_stones(@game.board_size, @game.stones)
+    @groups = Group.group_stones(@game.board_size, @game.stones)
   end
 
 end

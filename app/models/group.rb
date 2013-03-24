@@ -15,9 +15,6 @@ class Group
     @liberties << liberty
   end
 
-
-
-
   # -- Class methods --------------------------------------------------------
 
   def self.group_stones(board_size, stones)
@@ -53,16 +50,11 @@ class Group
         [point[0], point[1] + 1], 
         [point[0], point[1] - 1]
       ]
-      next_points.delete([previous_stone.x_position, previous_stone.y_position])
 
       next_points.each do |next_point|
-        if next_group = Group.find_group(board_size, stones, stone, next_point)
-          puts "------ 3"
-          next_group.stones.each do |stone|
-            puts "------ 4"
-            group.add_stone(stone) unless stone == previous_stone
-          end
-          puts "------ 5"
+        puts "next point: #{next_point}"
+        unless group.stones.any? {|s| s.x_position == next_point[0] && s.y_position == next_point[1]}
+          Group.find_group(board_size, stones, stone, next_point, group)
         end
       end
     else

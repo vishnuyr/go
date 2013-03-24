@@ -3,7 +3,7 @@ require 'test_helper'
 class GroupTest < ActiveSupport::TestCase
 
   def test_group_stones
-    board_size = 9
+    board_size = 13
     stones = []
 
     (1..5).each do |num|
@@ -20,6 +20,13 @@ class GroupTest < ActiveSupport::TestCase
       })
       stones << stone
       stone = Stone.new({
+        :x_position => 9,
+        :y_position => num,
+        :is_white => false
+      })
+      stones << stone
+
+      stone = Stone.new({
         :x_position => 1,
         :y_position => num + 3,
         :is_white => num%2 == 0
@@ -32,6 +39,15 @@ class GroupTest < ActiveSupport::TestCase
       })
       stones << stone
     end
+
+    # (1..100).each do |num|
+    #   stone = Stone.new({
+    #     :x_position => rand(1..board_size),
+    #     :y_position => rand(1..board_size),
+    #     :is_white => [true, false].sample
+    #   })
+    #   stones << stone
+    # end
 
     (1..board_size).each do |col|
       cell = ''
@@ -51,6 +67,7 @@ class GroupTest < ActiveSupport::TestCase
 
     groups = Group.group_stones(board_size, stones)
     puts ""
+
     puts "total groups: #{groups.count}" if groups.present?
     groups.each do |group|
       puts "------------ GROUP ---------------"
@@ -62,14 +79,17 @@ class GroupTest < ActiveSupport::TestCase
         puts "y: #{stone.y_position}"
       end
     end
+
     one_stone_groups = groups.select { |g| g.stones.count == 1 }
     five_stone_groups = groups.select { |g| g.stones.count == 5 }
+    ten_stone_groups = groups.select { |g| g.stones.count == 10 }
     assert_equal 10, groups.count
     assert_equal 8, one_stone_groups.count
-    assert_equal 2, five_stone_groups.count
-    # one 5 black stone group, one 5 black stone group
-    assert_equal 5, five_stone_groups.last.stones.select {|s| s.is_white }.count
-    assert_equal 5, five_stone_groups.first.stones.select {|s| !s.is_white }.count
+    assert_equal 1, five_stone_groups.count
+    assert_equal 1, ten_stone_groups.count
+    # one 5 white stone group, one 10 black stone group
+    assert_equal 5, five_stone_groups.first.stones.select {|s| s.is_white }.count
+    assert_equal 10, ten_stone_groups.first.stones.select {|s| !s.is_white }.count
   end
 
 end
