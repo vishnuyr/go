@@ -2,8 +2,9 @@ class Group
 
   attr_reader :stones, :liberties
 
-  def initialize(stones = [])
+  def initialize(stones = [], liberties = [])
     @stones = stones
+    @liberties = liberties
   end
 
   # -- Instance methods -----------------------------------------------------
@@ -11,53 +12,54 @@ class Group
     @stones << stone
   end
 
-  def add_liberty(liberty)
-    @liberties << liberty
+  def add_liberty(point)
+    @liberties << point
   end
 
   # -- Class methods --------------------------------------------------------
 
-  def self.group_stones(board_size, stones)
+  def self.all(board_size, stones)
     groups = []
     (1..board_size).each do |row|
-      puts "ROW NUMBER #{row}"
       (1..board_size).each do |col|
-        puts "COLUMN NUMBER #{col}"
         if stone = stones.select { |s| s.x_position == col && s.y_position == row }.first
-          puts "---- THERE IS A STONE ON THIS CELL"
           unless groups.any? { |g| g.stones.include?(stone) }
-            puts "---- THIS STONE HASN'T BEEN INCLUDED IN GROUPS YET"
             group = Group.find_group(board_size, stones, stone, [col, row])
             groups << group
           end
         end
       end
     end
+    # remove groups with no liberties
+    groups.delete_if {|g| g.liberties.count == 0 }
     return groups
   end
 
   def self.find_group(board_size, stones, previous_stone, point, group = nil)
-    if stone = stones.select { |s| s.x_position == point[0] && s.y_position == point[1] && s.is_white == previous_stone.is_white }.first
-      puts "---- STONE IS SAME COLOR AS PREVIOUS STONE"
-      group ||= Group.new
-      puts "------ 1"
-      group.add_stone(stone)
-      puts "------ 2"
+    if stone = stones.select { |s| s.x_position == point[0] && s.y_position == point[1] }.first
+      if stone.is_white == previous_stone.is_white
+        group ||= Group.new
+        group.add_stone(stone)
 
-      next_points = [
-        [point[0] + 1, point[1]], 
-        [point[0] - 1, point[1]], 
-        [point[0], point[1] + 1], 
-        [point[0], point[1] - 1]
-      ]
+        next_points = []
 
-      next_points.each do |next_point|
-        puts "next point: #{next_point}"
-        unless group.stones.any? {|s| s.x_position == next_point[0] && s.y_position == next_point[1]}
-          Group.find_group(board_size, stones, stone, next_point, group)
+        next_points << [point[0] + 1, point[1]] unless point[0] == board_size
+        next_points << [point[0] - 1, point[1]] unless point[0] == 1
+        next_points << [point[0], point[1] + 1] unless point[1] == board_size
+        next_points << [point[0], point[1] - 1] unless point[0] == 1
+
+        next_points.each do |next_point|
+          unless group.stones.any? {|s| s.x_position == next_point[0] && s.y_position == next_point[1]}
+            Group.find_group(board_size, stones, stone, next_point, group)
+          end
         end
+      else
+        # there is a stone at that point, but it's not the same color as last stone.
+        group = nil
       end
     else
+      # no stone on that cell
+      group.add_liberty(point)
       group = nil
     end
     return group

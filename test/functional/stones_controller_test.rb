@@ -7,11 +7,6 @@ class StonesControllerTest < ActionController::TestCase
     @game = games(:one)
   end
 
-  def test_get_index
-    get :index, :id => @game
-    assert_response :success
-  end
-
   def test_creation
     @game.white_player_id = @player.id
     @game.save
