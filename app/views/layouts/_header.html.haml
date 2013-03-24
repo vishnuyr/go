@@ -1,9 +1,5 @@
-%ul
-  %li= current_user.username
-  %li= current_user.email
-  %li 
-    color:
-    - if @game && @game.white_player_id == current_user.id
-      white
-    - else
-      black
+- if current_user
+  %ul
+    %li= link_to current_user.username, player_path(current_user)
+    %li= current_user.email
+    %li= link_to 'logout', logout_path, :method => :delete

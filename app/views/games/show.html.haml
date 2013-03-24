@@ -4,7 +4,7 @@
   %h3 Players
   - @game.players.each do |player|
     - if @game.white_player_id == player.id
-      %p 
+      %p
         White:
         = player.username
     - else
@@ -20,3 +20,4 @@
 
 :javascript
   var game_id = "#{@game.id}"
+  var stones  = #{@game.stones.to_json}

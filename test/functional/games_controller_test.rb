@@ -35,4 +35,33 @@ class GamesControllerTest < ActionController::TestCase
     assert assigns(:white_player)
   end
 
+  def test_join
+    assert_equal 0, @game.players.count
+    assert_difference '@game.players.count' do
+      post :join, {:id => @game}
+      assert_equal @player, @game.players.last
+    end
+  end
+
+  def test_join_failure
+    player1 = Player.create({
+      :username => 'player one',
+      :email => 'player@one.com'
+    })
+    player2 = Player.create({
+      :username => 'player two',
+      :email => 'player@two.com'
+    })
+    @game.players << player1
+    @game.players << player2
+    @game.save
+    assert_no_difference '@game.players.count' do
+      post :join, {:id => @game}
+      assert_equal player2, @game.players.last
+      assert_equal 'that game is full', flash[:notice]
+      assert_response :redirect
+      assert_redirected_to games_path
+    end
+  end
+
 end

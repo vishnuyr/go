@@ -3,9 +3,6 @@ class StonesController < ApplicationController
   before_filter :load_game, :only => [:create, :index]
   before_filter :build_stone, :only => [:create]
 
-  def index
-  end
-
   def create
     @stone.save!
   rescue ActiveRecord::RecordInvalid

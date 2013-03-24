@@ -16,7 +16,8 @@ class PlayersControllerTest < ActionController::TestCase
         :email => 'test@example.com'
       }
       assert_response :redirect
-      assert_redirected_to signup_path
+      assert assigns(:player)
+      assert_redirected_to player_path(assigns(:player))
     end
   end
 

@@ -1,7 +1,8 @@
 one:
   username: player one
   email: playerone@email.com
-
+  salt: <%= salt = "asdasdastr4325234324sdfds" %>
+  crypted_password: <%= Sorcery::CryptoProviders::BCrypt.encrypt('passpass', salt) %>
 two:
   username: player two
   email: playertwo@email.com

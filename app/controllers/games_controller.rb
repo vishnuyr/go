@@ -2,6 +2,7 @@ class GamesController < ApplicationController
 
   before_filter :build_game, :only => [:new, :create]
   before_filter :load_game, :only => [:show, :join]
+  before_filter :build_groups, :only => [:show]
 
   def index
     @games = Game.all
@@ -42,12 +43,16 @@ class GamesController < ApplicationController
 protected
 
   def build_game
-    @game = Game.new
+    @game = Game.new(params[:game])
     @game.players << current_user
   end
 
   def load_game
     @game = Game.find(params[:id])
+  end
+
+  def build_groups
+    # groups = Group.group_stones(@game.board_size, @game.stones)
   end
 
 end
