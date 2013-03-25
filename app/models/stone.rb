@@ -5,7 +5,7 @@ class Stone < ActiveRecord::Base
   belongs_to :game
 
   # -- Validations ----------------------------------------------------------
-  validates :x_position, :y_position, :is_white,
+  validates :x_position, :y_position,
     :presence => true
 
   # -- Scopes ---------------------------------------------------------------

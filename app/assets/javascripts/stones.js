@@ -1,6 +1,6 @@
-$(window.document).ready(function () {
+// $(window.document).ready(function () {
   
-  Group = new Group(stones);
-  console.log(Group.stones.white);
+//   Group = new Group(stones);
+//   console.log(Group.stones.white);
 
-});
+// });

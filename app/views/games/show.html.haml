@@ -16,8 +16,8 @@
   = @game.inspect
 
 .board
-  = render :partial => 'board', :locals => {:game => @game}
+  = render :partial => 'board', :locals => {:game => @game, :groups => @groups}
 
 :javascript
   var game_id = "#{@game.id}"
-  var stones  = #{@game.stones.to_json}
+  var groups = #{@groups.to_json}

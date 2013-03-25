@@ -1,1 +1,1 @@
-$('.board').html("<%= escape_javascript(render :partial => 'games/board', :locals => {:game => @game}) %>");
+$('.board').html("<%= escape_javascript(render :partial => 'games/board', :locals => {:game => @game, :groups => @groups }) %>");

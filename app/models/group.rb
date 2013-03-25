@@ -31,7 +31,15 @@ class Group
       end
     end
     # remove groups with no liberties
-    groups.delete_if {|g| g.liberties.count == 0 }
+    dead_groups = groups.select {|g| g.liberties.count == 0 }
+    groups = groups - dead_groups
+    dead_groups.each do |dead_group|
+      dead_group.stones.each do |stone|
+        stone.delete
+      end
+    end
+    Rails.logger.info "=======>"
+    Rails.logger.info dead_groups
     return groups
   end
 
@@ -42,7 +50,6 @@ class Group
         group.add_stone(stone)
 
         next_points = []
-
         next_points << [point[0] + 1, point[1]] unless point[0] == board_size
         next_points << [point[0] - 1, point[1]] unless point[0] == 1
         next_points << [point[0], point[1] + 1] unless point[1] == board_size
