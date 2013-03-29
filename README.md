@@ -1,9 +1,8 @@
-# Starting a Rails version of the board game Go.
+# The boardgame Go for Rails.
 
 ## To do:
 
-- Fix bugs in removing dead groups
-- Limit moves to one per turn
-- Move group logic to front-end
-- WebSockets
+- Move group logic after stone placement to front-end.
 - Calculate territory
+- Style
+- Corner placeholders

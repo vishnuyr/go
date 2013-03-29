@@ -1,6 +1,6 @@
 %h1 The game!!!
 
-%p 
+.players
   %h3 Players
   - @game.players.each do |player|
     - if @game.white_player_id == player.id
@@ -11,9 +11,10 @@
       %p 
         Black:
         = player.username
-%p
+.details
   %h3 Details
-  = @game.inspect
+  .placing-player
+    = "<span>#{@game.players.select { |p| p.id == @game.placing_player_id }.first.username}</span>'s turn".html_safe
 
 .board
   = render :partial => 'board', :locals => {:game => @game, :groups => @groups}

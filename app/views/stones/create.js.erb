@@ -1,5 +1,4 @@
 <% publish_to '/stones/new' do %>
   $('.board').html("<%= escape_javascript(render :partial => 'games/board', :locals => {:game => @game, :groups => @groups }) %>");
+  $('.placing-player span').html("<%= @game.players.select { |p| p.id == @game.placing_player_id }.first.username %>");
 <% end %>
-
-placing_player_id = <%= @game.placing_player_id %>
