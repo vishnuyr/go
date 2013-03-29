@@ -13,6 +13,4 @@ class Player < ActiveRecord::Base
   validates :username,
     :presence => true
 
-  # -- Scopes ---------------------------------------------------------------
-
 end

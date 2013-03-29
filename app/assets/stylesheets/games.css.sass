@@ -1,12 +1,11 @@
 table
   background: #ccc
+  border-collapse: collapse
   tr
     td
       width: 30px
       height: 30px
       background: url(board_cell_bg.png) no-repeat left
-      display: inline-block
-      margin: 0 -2px -4px 0
       .group
         position: absolute
         font-size: 10px
@@ -18,7 +17,8 @@ table
         border-radius: 100px
         margin: 0 auto
         position: relative
-        top: 5px
+        top: 0
+        left: 5px
         &.white
           background: white
         &.black

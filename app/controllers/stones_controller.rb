@@ -6,6 +6,8 @@ class StonesController < ApplicationController
   def create
     @stone.save!
     @groups = Group.all(@game.board_size, @game.stones, @stone)
+    @game.placing_player_id = @game.players.select { |p| p.id != current_user.id }.first.id
+    @game.save
   end
 
 protected
@@ -23,15 +25,19 @@ protected
     # remove after haml upgrade
     params[:stone][:y_position] = params[:stone][:x_position] if !params[:stone][:y_position]
 
-    if @game.stones.any? { |s| s.x_position == params[:stone][:x_position].to_i && s.y_position == params[:stone][:y_position].to_i }
-      @groups = Group.all(@game.board_size, @game.stones)
-      render
+    if !(@game.placing_player_id == current_user.id)
+      render :nothing => true
     else
-      @stone = Stone.new(params[:stone])
-      @stone.game = @game
-      @game.stones << @stone
-      @stone.player = current_user
-      @stone.is_white = @game.white_player_id == current_user.id
+      if @game.stones.any? { |s| s.x_position == params[:stone][:x_position].to_i && s.y_position == params[:stone][:y_position].to_i }
+        @groups = Group.all(@game.board_size, @game.stones)
+        render
+      else
+        @stone = Stone.new(params[:stone])
+        @stone.game = @game
+        @game.stones << @stone
+        @stone.player = current_user
+        @stone.is_white = @game.white_player_id == current_user.id
+      end
     end
   end
 

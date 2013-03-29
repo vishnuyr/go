@@ -14,6 +14,7 @@ class GamesController < ApplicationController
     if params[:color] == 'white'
       @game.white_player_id = current_user.id
     end
+    @game.placing_player_id = @game.white_player_id
     @game.save!
     redirect_to game_path(@game)
   rescue ActiveRecord::RecordInvalid
@@ -31,7 +32,10 @@ class GamesController < ApplicationController
   def join
     if @game.players.count < 2
       @game.players << current_user
-      @game.white_player_id = current_user.id if !@game.white_player_id 
+      if !@game.white_player_id
+        @game.white_player_id = current_user.id 
+        @game.placing_player_id = current_user.id
+      end
       @game.save
       redirect_to game_path(@game)
     else

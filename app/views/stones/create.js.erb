@@ -1,1 +1,5 @@
-$('.board').html("<%= escape_javascript(render :partial => 'games/board', :locals => {:game => @game, :groups => @groups }) %>");
+<% publish_to '/stones/new' do %>
+  $('.board').html("<%= escape_javascript(render :partial => 'games/board', :locals => {:game => @game, :groups => @groups }) %>");
+<% end %>
+
+placing_player_id = <%= @game.placing_player_id %>

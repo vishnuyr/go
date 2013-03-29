@@ -4,7 +4,8 @@ gem 'rails', '3.2.12'
 gem 'mysql2'
 gem 'haml'
 gem 'sorcery'
-gem 'rails-backbone'
+gem 'private_pub'
+gem 'thin'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

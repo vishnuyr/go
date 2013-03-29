@@ -18,6 +18,8 @@
 .board
   = render :partial => 'board', :locals => {:game => @game, :groups => @groups}
 
+= subscribe_to '/stones/new'
+
 :javascript
   var game_id = "#{@game.id}"
   var groups = #{@groups.to_json}

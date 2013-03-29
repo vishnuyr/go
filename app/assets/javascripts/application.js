@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require go/views/group
+//= require private_pub
 //= require_tree .
