@@ -6,7 +6,4 @@ class Game < ActiveRecord::Base
   has_one :placing_player
   has_many :stones
 
-  # -- Scopes ---------------------------------------------------------------
-
-
 end

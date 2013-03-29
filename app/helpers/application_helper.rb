@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  def show_stone_and_liberty_counts(group)
+  def show_group_stone_and_liberty_counts(group)
     case group.stones.size
     when 1 
       color = 'green'
@@ -15,14 +15,11 @@ module ApplicationHelper
     else 
       color = 'purple'
     end
-
     return "
       <div class='group' style='background: #{color};'>
         #{group.stones.size}, #{group.liberties.size}
       </div>
     ".html_safe
-
-
   end
 
 
