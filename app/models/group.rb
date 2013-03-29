@@ -38,8 +38,6 @@ class Group
         stone.delete
       end
     end
-    Rails.logger.info "=======>"
-    Rails.logger.info dead_groups
     return groups
   end
 
@@ -50,10 +48,10 @@ class Group
         group.add_stone(stone)
 
         next_points = []
-        next_points << [point[0] + 1, point[1]] unless point[0] == board_size
-        next_points << [point[0] - 1, point[1]] unless point[0] == 1
-        next_points << [point[0], point[1] + 1] unless point[1] == board_size
-        next_points << [point[0], point[1] - 1] unless point[0] == 1
+        next_points << [point[0] + 1, point[1]] unless point[0]+1 > board_size
+        next_points << [point[0] - 1, point[1]] unless point[0]-1 < 1
+        next_points << [point[0], point[1] + 1] unless point[1]+1 > board_size
+        next_points << [point[0], point[1] - 1] unless point[1]-1 < 1
 
         next_points.each do |next_point|
           unless group.stones.any? {|s| s.x_position == next_point[0] && s.y_position == next_point[1]}
@@ -65,8 +63,10 @@ class Group
         group = nil
       end
     else
-      # no stone on that cell
-      group.add_liberty(point)
+      # no stone on that cell. add liberty if not already included.
+      unless group.liberties.any? { |l| l[0] == point[0] && l[1] == point[1] }
+        group.add_liberty(point)
+      end
       group = nil
     end
     return group
