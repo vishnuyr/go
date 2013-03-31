@@ -6,7 +6,7 @@
           - if group = groups.select { |g| g.stones.any? { |s| s.x_position == column && s.y_position == row } }.first
             - stone = group.stones.select { |s| s.x_position == column && s.y_position == row }.first
 
-            = show_group_stone_and_liberty_counts(group)
+            / # = show_group_stone_and_liberty_counts(group)
 
             - if stone.is_white
               .stone.white

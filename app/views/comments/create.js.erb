@@ -1,0 +1,3 @@
+<% publish_to '/comments/new' do %>
+  $('.comments').html("<%= escape_javascript(render :partial => 'games/comments', :locals => {:game => @game }) %>");
+<% end %>

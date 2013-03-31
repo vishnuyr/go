@@ -1,0 +1,9 @@
+one:
+  content: 'first comment'
+  player: one
+  game: one
+
+two:
+  content: 'second comment'
+  player: two
+  game: two

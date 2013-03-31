@@ -1,0 +1,7 @@
+= form_for :comment, :url => {:controller => 'comments', :action => 'create', :id => @game.id}, :remote => true do |f|
+  = f.text_field :content
+  = f.submit
+
+- game.comments.order('created_at DESC').each do |comment|
+  .comment
+    = "#{comment.player.username}: #{comment.content}"
