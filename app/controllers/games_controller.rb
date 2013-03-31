@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   before_filter :build_game, :only => [:new, :create]
-  before_filter :load_game, :only => [:show, :join]
+  before_filter :load_game, :only => [:show, :join, :pass]
 
   def index
     @games = Game.all
@@ -41,6 +41,15 @@ class GamesController < ApplicationController
     else
       flash[:notice] = 'that game is full'
       redirect_to games_path
+    end
+  end
+
+  def pass
+    if !(@game.placing_player_id == current_user.id)
+      render :nothing => true
+    else
+      @game.placing_player_id = @game.players.select { |p| p.id != current_user.id }.first.id
+      @game.save
     end
   end
 

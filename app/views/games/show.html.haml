@@ -14,12 +14,16 @@
 .details
   %h3 Details
   .placing-player
-    = "<span>#{@game.players.select { |p| p.id == @game.placing_player_id }.first.username}</span>'s turn".html_safe
+    - if @game.placing_player_id
+      = "<span>#{@game.players.select { |p| p.id == @game.placing_player_id }.first.username}</span>'s turn".html_safe
+
+= link_to 'pass', pass_game_path(@game), :remote => true, :confirm => "are you sure?"
 
 .board
   = render :partial => 'board', :locals => {:game => @game, :groups => @groups}
 
 = subscribe_to '/stones/new'
+= subscribe_to '/games/pass'
 
 :javascript
   var game_id = "#{@game.id}"

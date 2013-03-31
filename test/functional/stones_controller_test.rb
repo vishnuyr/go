@@ -8,7 +8,11 @@ class StonesControllerTest < ActionController::TestCase
   end
 
   def test_creation
+    @game.update_column(:placing_player_id, @player.id)
+    @game.players << @player
+    @game.players << players(:two)
     @game.white_player_id = @player.id
+
     @game.save
     xhr :post, :create, {
       :id => @game.id, 
@@ -24,6 +28,10 @@ class StonesControllerTest < ActionController::TestCase
     assert_equal true, assigns(:stone).is_white
     assert_equal 1, assigns(:stone).x_position
     assert_equal 2, assigns(:stone).y_position
+  end
+
+  def test_creation_with_one_player
+    flunk
   end
 
   def test_creation_failure_with_bad_game

@@ -6,7 +6,10 @@ class StonesController < ApplicationController
   def create
     @stone.save!
     @groups = Group.all(@game.board_size, @game.stones, @stone)
-    @game.placing_player_id = @game.players.select { |p| p.id != current_user.id }.first.id
+
+    if @groups.any? { |g| g.stones.include?(@stone) }
+      @game.placing_player_id = @game.players.select { |p| p.id != current_user.id }.first.id
+    end
     @game.save
   end
 

@@ -26,7 +26,7 @@ class Group
       next_points.each do |np|
         # if there isn't a stone in the live groups at that point, then we're good
         if !groups.any? { |lg| lg.stones.any? { |s| s.x_position == np[0] && s.y_position == np[1] } }
-          self.liberties << [np[0], np[1]]
+          self.liberties << [np[0], np[1]] if self.liberties == 0
           return true
         end
       end

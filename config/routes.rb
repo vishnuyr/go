@@ -13,7 +13,9 @@ Go::Application.routes.draw do
   resources :games do
     member do
       get 'join' => 'games#join'
+      get 'pass' => 'games#pass'
       resources :stones
+      resources :comments
     end
   end
 

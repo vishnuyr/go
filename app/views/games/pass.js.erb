@@ -1,0 +1,4 @@
+<% publish_to '/games/pass' do %>
+  alert("<%= current_user.username %> passed.");
+  $('.placing-player span').html("<%= @game.players.select { |p| p.id == @game.placing_player_id }.first.username %>");
+<% end %>
