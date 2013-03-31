@@ -4,9 +4,9 @@
   %h3 Players
   - @game.players.each do |player|
     - if @game.white_player_id == player.id
-      = "White: #{player.username}"
+      .player= "#{player.username} - white"
     - else
-      = "Black: #{player.username}"
+      .player= "#{player.username} - black"
 .details
   %h3 Details
   .placing-player
